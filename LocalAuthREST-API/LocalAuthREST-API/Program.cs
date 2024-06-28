@@ -1,49 +1,110 @@
 using LocalAuthREST_API;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 
-var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<TodoDb>(opt => opt.UseInMemoryDatabase("TodoList"));
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<UserDB>(opt => opt.UseInMemoryDatabase("UserList"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-var app = builder.Build();
 
-app.MapGet("/todoitems", async (TodoDb db) => await db.todos.ToListAsync());
+builder.Services.AddAuthorization();
 
-app.MapGet("/todoitems/complete", async (TodoDb db) => await db.todos.Where(t => t.IsComplete).ToListAsync());
+byte[] key = Encoding.ASCII.GetBytes("Very_Secret_Secret_To_Secure_The_API_And_The_Data_Of_The_Users");
+string issuer = "https://localhost:7031/:";
+string audience = "https://localhost:7031/";
 
-app.MapGet("/todoitems/{id}", async (int id, TodoDb db) => await db.todos.FindAsync(id) is Todo todo ? Results.Ok(todo) : Results.NotFound());
-
-app.MapPost("/todoitems", async (Todo todo, TodoDb db) =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
-    db.todos.Add(todo);
-    await db.SaveChangesAsync();
-
-    return Results.Created($"/todoitems/{todo.Id}", todo);
-});
-
-app.MapPut("/todoitems/{id}", async (int id, Todo inputTodo, TodoDb db) =>
-{
-    var todo = await db.todos.FindAsync(id);
-
-    if (todo is null) return Results.NotFound();
-
-    todo.Name = inputTodo.Name;
-    todo.IsComplete = inputTodo.IsComplete;
-
-    await db.SaveChangesAsync();
-
-    return Results.NoContent();
-});
-
-app.MapDelete("/todoitems/{id}", async (int id, TodoDb db) =>
-{
-    if (await db.todos.FindAsync(id) is Todo todo)
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        db.todos.Remove(todo);
-        await db.SaveChangesAsync();
-        return Results.NoContent();
+        ValidateIssuer = true, 
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = issuer,
+        ValidAudience = audience,
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
+
+WebApplication app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapGet("/api/user", async (UserDB db) => await db.users.ToListAsync()).RequireAuthorization();
+
+app.MapPost("/api/auth/login/", async (User user, UserDB db) =>
+{
+    string username = user.Username;
+    string password = user.Password;
+
+    string hashedPassword;
+    using (HashAlgorithm hash = SHA256.Create())
+    {
+        byte[] hashBytes = hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+        StringBuilder sb = new StringBuilder();
+        foreach (byte b in hashBytes)
+        {
+            sb.Append(b.ToString("x2"));
+        }
+        hashedPassword = sb.ToString();
     }
 
-    return Results.NotFound();
+    User authenticatedUser = await db.users.FirstOrDefaultAsync(u => u.Username == username && u.Password == hashedPassword);
+
+    if (authenticatedUser != null)
+    {
+        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+        { 
+            Subject = new ClaimsIdentity(new Claim[]
+            {
+                new Claim(ClaimTypes.Name, authenticatedUser.Username),
+                new Claim(ClaimTypes.NameIdentifier, authenticatedUser.Id.ToString())
+            }),
+            Expires = DateTime.UtcNow.AddHours(1),
+            Issuer = issuer,
+            Audience = audience,
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
+        SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+        string tokenString = tokenHandler.WriteToken(token);
+
+        return Results.Ok(new { Token = tokenString });
+    }
+
+    return authenticatedUser != null ? Results.Ok(authenticatedUser) : Results.NotFound();
+});
+
+app.MapPost("/api/auth/register", async (User User, UserDB db) =>
+{
+
+    if (await db.users.AnyAsync(u => u.Username == User.Username))
+    {
+        return Results.Conflict("Ein Benutzer mit diesem Benutzernamen existiert bereits.");
+    }
+
+    using (HashAlgorithm hash = SHA256.Create())
+    {
+        byte[] hashBytes = hash.ComputeHash(Encoding.UTF8.GetBytes(User.Password));
+        StringBuilder sb = new StringBuilder();
+        foreach (byte b in hashBytes)
+        {
+            sb.Append(b.ToString("x2"));
+        }
+
+        User.Password = sb.ToString();
+    }
+
+    db.users.Add(User);
+    await db.SaveChangesAsync();
+
+    return Results.Created($"/user/{User.Id}", User);
 });
 
 app.Run();

@@ -31,3 +31,12 @@ C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalA
 C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\obj\Debug\net8.0\LocalAut.7C975D74.Up2Date
 C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
 C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Newtonsoft.Json.dll
