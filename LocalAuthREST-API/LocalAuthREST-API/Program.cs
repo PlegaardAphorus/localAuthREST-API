@@ -1,5 +1,6 @@
 using LocalAuthREST_API;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -36,12 +37,15 @@ WebApplication app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/api/user", async (UserDB db) => await db.users.ToListAsync()).RequireAuthorization();
-
 app.MapPost("/api/auth/login/", async (User user, UserDB db) =>
 {
     string username = user.Username;
     string password = user.Password;
+
+    if (username == null || password == null)
+    {
+        return Results.Conflict("Sie müssen ein Benutzername und Passwort angeben.");
+    }
 
     string hashedPassword;
     using (HashAlgorithm hash = SHA256.Create())
@@ -106,5 +110,17 @@ app.MapPost("/api/auth/register", async (User User, UserDB db) =>
 
     return Results.Created($"/user/{User.Id}", User);
 });
+
+app.MapGet("/api/user", async (UserDB db) => await db.users.ToListAsync()).RequireAuthorization();
+
+app.MapGet("/api/user/me", async (ClaimsPrincipal user, UserDB db) =>
+{
+    int userID = Convert.ToInt32(user.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+    User currentUser = await db.users.FirstOrDefaultAsync(u => u.Id == userID);
+
+    return currentUser != null ? Results.Ok(currentUser) : Results.Unauthorized();
+
+}).RequireAuthorization();
 
 app.Run();
