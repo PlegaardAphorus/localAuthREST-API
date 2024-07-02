@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using LocalAuthREST_API.models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LocalAuthREST_API
+namespace LocalAuthREST_API.controllers
 {
     public class UserDB : DbContext
     {

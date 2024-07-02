@@ -1,4 +1,4 @@
-﻿namespace LocalAuthREST_API
+﻿namespace LocalAuthREST_API.models
 {
     public class User
     {

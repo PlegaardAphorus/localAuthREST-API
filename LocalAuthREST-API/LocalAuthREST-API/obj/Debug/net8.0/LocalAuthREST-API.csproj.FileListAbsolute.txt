@@ -40,3 +40,8 @@ C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalA
 C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\praktikant\Desktop\Lukas\API\localAuthREST-API\LocalAuthREST-API\LocalAuthREST-API\obj\Debug\net8.0\LocalAuthREST-API.MvcApplicationPartsAssemblyInfo.cs
