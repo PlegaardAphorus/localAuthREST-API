@@ -1,7 +1,6 @@
 ﻿using LocalAuthREST_API.controllers;
 using LocalAuthREST_API.models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LocalAuthREST_API.routes
 {
@@ -9,7 +8,7 @@ namespace LocalAuthREST_API.routes
     {
         public static void GetAllTodos(WebApplication app)
         {
-            app.MapGet("/api/todo/list", async ([FromServices] TodoDB db) => TodoController.GetAllTodos(db)).RequireAuthorization();
+            app.MapGet("/api/todo/list", async ([FromServices] TodoDB db) => TodoController.GetAllTodos(db));
         }
 
         public static void GetAllCompletedTodos(WebApplication app)
