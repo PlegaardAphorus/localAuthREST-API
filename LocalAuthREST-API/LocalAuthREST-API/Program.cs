@@ -1,7 +1,6 @@
 using LocalAuthREST_API.controllers;
 using LocalAuthREST_API.routes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -10,6 +9,7 @@ IConfigurationRoot config = new ConfigurationBuilder().AddEnvironmentVariables()
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<UserDB>(opt => opt.UseInMemoryDatabase("UserList"));
+builder.Services.AddDbContext<TodoDB>(opt => opt.UseInMemoryDatabase("TodoList"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddSwaggerGen();
 builder.Services.AddEndpointsApiExplorer();
