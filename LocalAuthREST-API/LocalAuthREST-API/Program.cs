@@ -40,6 +40,8 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseHttpsRedirection();
+
 authRoutes.register(app);
 authRoutes.login(app, config);
 
