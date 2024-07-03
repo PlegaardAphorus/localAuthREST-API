@@ -38,10 +38,8 @@ namespace LocalAuthREST_API.controllers
                 User authenticatedUser = await db.users.FirstOrDefaultAsync(u => u.Username == username && u.Password == hashedPassword);
 
                 if (authenticatedUser != null)
-                {
-                    string token = JwtToken.CreateToken(authenticatedUser, config);
-                    Console.WriteLine(token);
-                    return token;
+                { 
+                    return JwtToken.CreateToken(authenticatedUser, config);
                 }
                 else
                 {
