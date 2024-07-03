@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "hyOcbthiXYWQARi4pn9oQIgId8HYUFnKz6HvVQqto2k=",
+  "Source": "LocalAuthREST-API",
+  "BasePath": "_content/LocalAuthREST-API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
