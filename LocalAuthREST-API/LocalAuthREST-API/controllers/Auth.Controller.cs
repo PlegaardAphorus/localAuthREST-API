@@ -13,7 +13,7 @@ namespace LocalAuthREST_API.controllers
                 return Results.Conflict("Ein Benutzer mit diesem Benutzernamen existiert bereits.");
             }
 
-            user.Password = HashPassword.hash(user.Password);
+            user.Password = HashPassword.PasswordHash(user.Password);
 
             db.users.Add(user);
             await db.SaveChangesAsync();
@@ -32,16 +32,19 @@ namespace LocalAuthREST_API.controllers
             }
 
             string hashedPassword;
-            hashedPassword = HashPassword.hash(password);
+            hashedPassword = HashPassword.PasswordHash(password);
 
             User authenticatedUser = await db.users.FirstOrDefaultAsync(u => u.Username == username && u.Password == hashedPassword);
 
             if (authenticatedUser != null)
             {
-                return Results.Ok(new { Token = JwtToken.createToken(authenticatedUser, config) });
+                Console.WriteLine(JwtToken.CreateToken(authenticatedUser, config));
+                return Results.Ok(new { Token = JwtToken.CreateToken(authenticatedUser, config) });
             }
-
-            return authenticatedUser != null ? Results.Ok(authenticatedUser) : Results.NotFound();
+            else
+            {
+                 return Results.NotFound();
+            }
         }
     }
 }

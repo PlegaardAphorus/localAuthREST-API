@@ -5,7 +5,7 @@ namespace LocalAuthREST_API.controllers
 {
     public class HashPassword
     {
-        public static string hash(string password)
+        public static string PasswordHash(string password)
         {
             using (HashAlgorithm hash = SHA256.Create())
             {

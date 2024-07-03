@@ -1,6 +1,7 @@
 using LocalAuthREST_API.controllers;
 using LocalAuthREST_API.routes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -23,9 +24,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = JwtToken.issuer(config),
-        ValidAudience = JwtToken.audience(config),
-        IssuerSigningKey = new SymmetricSecurityKey(JwtToken.key(config))
+        ValidIssuer = JwtToken.Issuer(config),
+        ValidAudience = JwtToken.Audience(config),
+        IssuerSigningKey = new SymmetricSecurityKey(JwtToken.Key(config))
     };
 });
 
@@ -42,10 +43,16 @@ app.UseAuthorization();
 
 app.UseHttpsRedirection();
 
-authRoutes.register(app);
-authRoutes.login(app, config);
+AuthRoutes.Register(app);
+AuthRoutes.Login(app, config);
 
-usersRoutes.allUsers(app);
-usersRoutes.selfUser(app);
+UsersRoutes.AllUsers(app);
+UsersRoutes.SelfUser(app);
+
+TodoRoutes.GetAllTodos(app);
+TodoRoutes.GetAllCompletedTodos(app);
+TodoRoutes.GetTodoFromID(app);
+TodoRoutes.AddTodo(app);
+TodoRoutes.DeleteTodo(app);
 
 app.Run();
