@@ -25,7 +25,7 @@ namespace LocalAuthREST_API.controllers
             db.todos.Add(todo);
             await db.SaveChangesAsync();
 
-            return Results.Created($"/todoitems/{todo.Id}", todo);
+            return Results.Created($"/todo/list/{todo.Id}", todo);
         }
 
         public async static Task<IResult> DeleteTodo(int id, TodoDB db)
