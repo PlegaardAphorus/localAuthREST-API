@@ -10,11 +10,6 @@ namespace LocalAuthREST_API.controllers
             return db.todos.ToListAsync();
         }
 
-        public static Task<List<Todo>> GetAllCompletedTodos(TodoDB db)
-        {
-            return db.todos.Where(t => t.Completed).ToListAsync();
-        }
-
         public static Task<List<Todo>> GetTodoFromID(TodoDB db, int id)
         {
             return db.todos.Where(t => t.Id == id).ToListAsync();

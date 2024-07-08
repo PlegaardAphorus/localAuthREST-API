@@ -10,6 +10,6 @@
 
         public bool Completed { get; set; }
 
-        public DateTime deadline { get; set; }
+        public string deadline { get; set; }
     }
 }

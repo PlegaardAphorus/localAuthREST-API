@@ -11,11 +11,6 @@ namespace LocalAuthREST_API.routes
             app.MapGet("/api/todo/list", async ([FromServices] TodoDB db) => TodoController.GetAllTodos(db));
         }
 
-        public static void GetAllCompletedTodos(WebApplication app)
-        {
-            app.MapGet("/api/todo/list/complete", async ([FromServices] TodoDB db) => TodoController.GetAllCompletedTodos(db)).RequireAuthorization();
-        }
-
         public static void GetTodoFromID(WebApplication app)
         {
             app.MapGet("/api/todo/list/{id}", async (int id, [FromServices] TodoDB db) => TodoController.GetTodoFromID(db, id)).RequireAuthorization();
