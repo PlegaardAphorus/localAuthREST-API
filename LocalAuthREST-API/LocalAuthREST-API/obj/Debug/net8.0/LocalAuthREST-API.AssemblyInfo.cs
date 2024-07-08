@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LocalAuthREST-API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ec4630b56a502fc1b9a0c062f38d183d0857059")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6512ad97f2738c97a3bff417721da173730d64f9")]
 [assembly: System.Reflection.AssemblyProductAttribute("LocalAuthREST-API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LocalAuthREST-API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

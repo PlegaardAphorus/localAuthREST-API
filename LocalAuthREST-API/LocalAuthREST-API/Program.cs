@@ -50,7 +50,6 @@ UsersRoutes.AllUsers(app);
 UsersRoutes.SelfUser(app);
 
 TodoRoutes.GetAllTodos(app);
-TodoRoutes.GetAllCompletedTodos(app);
 TodoRoutes.GetTodoFromID(app);
 TodoRoutes.AddTodo(app);
 TodoRoutes.DeleteTodo(app);
